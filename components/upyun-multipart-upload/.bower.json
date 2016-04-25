@@ -1,0 +1,36 @@
+{
+  "name": "upyun-multipart-upload",
+  "version": "0.4.0",
+  "authors": [
+    "Leigh Zhu <i@zhuli.me>"
+  ],
+  "description": "a js sdk for upyun multipart upload",
+  "main": "lib/upyun-mu.js",
+  "keywords": [
+    "upyun",
+    "upload",
+    "cdn"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/upyun/js-multipart-upload",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "spark-md5": "*",
+    "async": "*"
+  },
+  "_release": "0.4.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.4.0",
+    "commit": "b301e9c91c16cfd141e262036632d5c17f007736"
+  },
+  "_source": "https://github.com/mambahao/js-multipart-upload.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/mambahao/js-multipart-upload.git"
+}

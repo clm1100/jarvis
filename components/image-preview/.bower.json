@@ -1,0 +1,29 @@
+{
+  "name": "image-preview",
+  "main": "image-preview.js",
+  "version": "0.0.3",
+  "homepage": "https://github.com/mambahao/image-preview",
+  "authors": [
+    "Justin Hao <justin@haoyufeng.com>"
+  ],
+  "keywords": [
+    "image-preview"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "0.0.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.3",
+    "commit": "fb08931572da953ee4bab9edcaefe58a8e02d7e8"
+  },
+  "_source": "git://github.com/mambahao/image-preview.git",
+  "_target": "*",
+  "_originalSource": "image-preview"
+}

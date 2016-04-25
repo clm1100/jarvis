@@ -1,0 +1,1 @@
+$(document).ready(function(){var a=url(-1,window.location.href);$("form").attr("action","/imports/"+a)});

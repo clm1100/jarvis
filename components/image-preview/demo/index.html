@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+
+  <title>Image Loader</title>
+  <meta name="description"
+        content="Image loader is plugin that loads image selected by input file field without uploading it on server.">
+  <!-- Just for demo if you are testing css method -->
+  <style>
+    section { margin-top: 50px; min-width: 300px; min-height: 300px; }
+  </style>
+</head>
+
+<body>
+<input type="file" name="file" class="file">
+
+<section class="loaded">
+  This is where image will be loaded!
+</section>
+
+<!-- JavaScript -->
+<script src="../image-preview.min.js"></script>
+
+<script>
+  var loader = new ImagePreview('input[type="file"]', {
+    placeholder: 'section.loaded',
+    method: 'html',
+    width: '200px',
+    height: '200px',
+    imgClass: 'some-class',
+    callback: function () {
+      console.log('image loaded');
+    }
+  });
+</script>
+</body>
+</html>

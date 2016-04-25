@@ -1,0 +1,39 @@
+{
+  "allowDivTransToP": false,
+  "imageActionName": "uploadimage",
+  "imageFieldName": "upfile",
+  "imageMaxSize": 2048000,
+  "imageAllowFiles": [".png", ".jpg", ".jpeg", ".gif"],
+  "imageCompressEnable": true,
+  "imageCompressBorder": 1600,
+  "imageInsertAlign": "none",
+  "imageUrlPrefix": "http://dev.images.moretao.com/ckeditor/picture/data/",
+  "imagePathFormat": "/ueditor/php/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}",
+  "videoActionName": "uploadvideo",
+  "videoFieldName": "upfile",
+  "videoPathFormat": "/ueditor/php/upload/video/{yyyy}{mm}{dd}/{time}{rand:6}",
+  "videoUrlPrefix": "",
+  "videoMaxSize": 102400000,
+  "videoAllowFiles": [".mkv", ".ogg", ".mov", ".wmv", ".mp4", ".webm", ".mp3", ".wav"],
+
+  "fileActionName": "uploadfile",
+  "fileFieldName": "upfile",
+  "filePathFormat": "/ueditor/php/upload/file/{yyyy}{mm}{dd}/{time}{rand:6}",
+  "fileUrlPrefix": "",
+  "fileMaxSize": 51200000,
+  "fileAllowFiles": [".png", ".jpg", ".jpeg", ".gif", ".mkv", ".ogg", ".mov", ".mp4", ".webm", ".mp3", ".pdf", ".txt"],
+
+  "imageManagerActionName": "images",
+  "imageManagerListPath": "/ueditor/php/upload/image/",
+  "imageManagerListSize": 20,
+  "imageManagerUrlPrefix": "http://dev.images.moretao.com/ckeditor/picture/data/",
+  "imageManagerInsertAlign": "none",
+  "imageManagerAllowFiles": [".png", ".jpg", ".jpeg", ".gif"],
+
+  "fileManagerActionName": "files",
+  "fileManagerListPath": "/ueditor/php/upload/file/",
+  "fileManagerUrlPrefix": "",
+  "fileManagerListSize": 20,
+  "fileManagerAllowFiles": [".png", ".jpg", ".jpeg", ".gif", ".mkv", ".ogg", ".mov", ".mp4", ".webm", ".mp3", ".pdf", ".txt"
+  ]
+}

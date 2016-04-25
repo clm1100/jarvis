@@ -1,0 +1,12 @@
+{% extends '../layout/application.html' %}{% block title %}活&nbsp;动{% endblock %}
+{% block main %}
+<p>&nbsp;</p>
+<ul id="sortable-list" class="list-group">
+  {% for item in items %}
+    <li class="list-group-item" data-id="{{item.id}}"><a href="/activities/{{item.id}}">{{item.t}}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="/javascripts/activities.js"></script>
+{% endblock %}

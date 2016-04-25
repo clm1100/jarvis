@@ -1,0 +1,16 @@
+{% extends '../layout/application.html' %}{% block title %}商品{% endblock %}{% block main %}
+<div class="row">
+    <p>&nbsp;</p>
+    {% if message %}
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>{{message}}</strong>
+    </div>
+    {% endif %}
+    {% include "_form.html" with {item:item, zans:zans, comments:comments, categories: categories, taglist: taglist,usedtag: usedtag} only %}
+</div>
+{% endblock %}
+{% block scripts %}
+
+<script type="text/javascript" src="/javascripts/commodities.js"></script>
+{% endblock %}

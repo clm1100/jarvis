@@ -1,0 +1,12 @@
+{% extends '../layout/application.html' %}{% block title %}商&nbsp;品{% endblock %}
+{% block main %}
+<p>&nbsp;</p>
+<ul id="commodities-sortable-list" class="list-group">
+    {% for item in items %}
+    <li class="list-group-item" data-id="{{item.id}}"><a href="/commodities/{{item.id}}">{{item.t}}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="/javascripts/commodities.js"></script>
+{% endblock %}

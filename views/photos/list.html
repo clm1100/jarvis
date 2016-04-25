@@ -1,0 +1,36 @@
+{% extends '../layout/application.html' %}{% block title %}图片库{% endblock %}{% block main %}
+<div class="row">
+  <div id="top-toolbar" class="top-toolbar row">
+    <div class="col-lg-12 text-left">
+      <select id="dir_filter" class="form-control" title="目录">
+        <option value="/banner/cover">横幅</option>
+        <option value="/ckeditor/picture/data">原创编辑器</option>
+        <option value="/topic/cover">原创头图</option>
+        <option value="/photo/f">商品图片</option>
+        <option value="/tag/cover">标签图片</option>
+        <option value="/message">私信图片</option>
+        <option value="/user/avatar">用户头像</option>
+      </select>
+    </div>
+  </div>
+  <div id="images-grid-container" style="position: relative; height: 90vh; overflow-y: auto">
+    <div id="images-grid"></div>
+    <div id="next"><a href="/api/photos?page=0&size=40&dir=/ckeditor/picture/data"></a></div>
+  </div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="/javascripts/photos.js"></script>
+<script id="grid-page-tpl" type="text/x-dot-template">
+  [[~ it.data :item:index]]
+    <div id="[[= removeExt(item.name) ]]" class="grid-item">
+      <div class="img"><img src="[[= it.prefix]]/[[=item.dir]]/[[= item.name ]]!waterfall" alt=""/></div>
+      <div class="title">
+        <div style="float: left">[[= item.size]]</div>
+        <div style="float: right"><a href="javascript:remove('[[= item.name ]]', '[[= item.dir ]]')"><span class="fa fa-trash"></span></a></div>
+      </div>
+    </div>
+  [[~]]
+</script>
+{% endblock %}

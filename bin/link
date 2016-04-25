@@ -1,0 +1,17 @@
+#!/bin/sh
+npm link pinyin
+npm link mongodb
+npm link mongoose
+
+if [[ $1 == "dev" ]];
+then
+npm link grunt
+npm link grunt-contrib-copy
+npm link grunt-contrib-clean
+npm link grunt-string-replace
+npm link grunt-bowercopy
+npm link grunt-eslint
+npm link grunt-contrib-uglify
+npm link grunt-json-minify
+npm link grunt-contrib-cssmin
+fi

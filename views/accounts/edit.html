@@ -1,0 +1,15 @@
+{% extends '../layout/application.html' %}{% block title %}账&nbsp;户{% endblock %}{% block main %}
+<div class="row">
+  <p>&nbsp;</p>
+  {% if message %}
+  <div class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>{{message}}</strong>
+  </div>
+  {% endif %}
+  {% include "_form.html" with {item:item} only %}
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="/javascripts/accounts.js"></script>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends '../layout/application.html' %}{% block title %}横&nbsp;幅{% endblock %}
+{% block main %}
+<p>&nbsp;</p>
+<ul id="sortable-list" class="list-group">
+  {% for item in items %}
+    <li class="list-group-item" data-id="{{item.id}}"><a href="/ads/{{item.id}}">{{item.d}}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="/javascripts/tabs.js"></script>
+{% endblock %}

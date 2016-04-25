@@ -1,0 +1,1 @@
+$(document).ready(function(){$("form").attr("action","/datas/makefiles/"+$("#make-type-select").val()),$("#make-type-select").change(function(){var a=$("#make-type-select").val();$("form").attr("action","/datas/makefiles/"+a)})});

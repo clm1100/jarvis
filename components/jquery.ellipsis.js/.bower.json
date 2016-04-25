@@ -1,0 +1,28 @@
+{
+  "name": "jquery.ellipsis.js",
+  "main": "jquery.ellipsis.js",
+  "homepage": "https://github.com/haoyufeng/jquery.ellipsis.js",
+  "authors": [
+    "Justin Hao <justin@haoyufeng.com>"
+  ],
+  "keywords": [
+    "jquery.ellipsis.js"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "95bbf6e372",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "95bbf6e3723663c994ca748fd086a4622ad67029"
+  },
+  "_source": "https://github.com/mambahao/jquery.ellipsis.js.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/mambahao/jquery.ellipsis.js.git"
+}

@@ -1,0 +1,30 @@
+{% extends '../layout/application.html' %}{% block title %}版本管理{% endblock %}{% block main %}
+<div class="row">
+  <p>&nbsp;</p>
+  <div class="alert alert-success alert-dismissible" role="alert" style="display: none">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>{{Complaint}}</strong>
+  </div>
+  <div class="top-toolbar"><button onclick="create()" class="btn btn-info">新建</button></div>
+  <table id="main-datatables" class="display nowrap dataTable dtr-inline" cellspacing="0" width="100%" role="grid"
+         aria-describedby="举报" style="width: 100%;">
+    <thead>
+    <tr role="row">
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1" style="width: 20%">ID</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1" style="width: 20%">版本号</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1" style="width: 15%">描述</th>
+      <th data-orderable="true" tabindex="0" rowspan="1" colspan="1" style="width: 20%;">下载地址</th>
+      <th data-orderable="true" tabindex="0" rowspan="1" colspan="1" style="width: 20%;">是否激活</th>
+      <th data-orderable="true" tabindex="0" rowspan="1" colspan="1" style="width: 15%;">是否强制</th>
+      <th data-orderable="true" tabindex="0" rowspan="1" colspan="1" style="width: 15%;">发布时间</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1" style="width: 10%;">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="/javascripts/versions.js"></script>
+{% endblock %}

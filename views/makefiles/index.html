@@ -1,0 +1,26 @@
+{% extends '../layout/application.html' %}{% block title %}生成文件{% endblock %}{% block main %}
+<div class="row">
+  <p>&nbsp;</p>
+  {% if message %}
+    <div class="alert alert-success alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <strong>{{message}}</strong>
+    </div>
+  {% endif %}
+  <div class="col-lg-12">
+    <form role="form" action="" method="post">
+      <div class="form-group col-lg-8">
+        <label><span class="fa fa-asterisk red"></span> 选择文件</label>
+        <select id="make-type-select" name="type" class="form-control">
+          <option value="regions">区域</option>
+        </select>
+        <p>&nbsp;</p>
+        <button onclick="$('form').submit()" class="btn btn-success">生成</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="/javascripts/makefiles.js"></script>
+{% endblock %}

@@ -1,0 +1,1 @@
+$(document).ready(function(){$(".navbar").hide(),$("#page-wrapper").attr("id","");var a=$("#signin-form");a.find("input[name=username]").focus(function(){$(".image-for-username").show(),$(".image-for-password").hide()}),a.find("input[name=password]").focus(function(){$(".image-for-username").hide(),$(".image-for-password").show()});$(".message").val()});

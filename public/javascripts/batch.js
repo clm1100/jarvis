@@ -1,0 +1,1 @@
+function addZansCount(){var a=$("#zans-type-select").val(),b=$("#zans-min-input").val(),c=$("#zans-max-input").val(),d="/api/"+a+"/batch/zans";$.post(d,{min:b,max:c},function(a){200===a.status&&BootstrapDialog.show({title:"提示",message:"批量点赞完成!"})})}var datatables;$(document).ready(function(){});

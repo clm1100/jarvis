@@ -1,0 +1,37 @@
+{% extends '../layout/application.html' %}{% block title %}横&nbsp;幅{% endblock %}{% block main %}
+<div class="row">
+  <div id="top-toolbar" class="top-toolbar row">
+    <div class="col-lg-9 text-left">
+      <input id="start_date_filter" type="text" title="开始时间" class="form-control datepicker" placeholder="开始时间">
+      <input id="end_date_filter"  type="text" title="结束时间" class="form-control datepicker" placeholder="结束时间">
+      <button onclick="reset()" class="btn btn-default"><span class="fa fa-trash-o"></span> 清空</button>
+    </div>
+    <div class="col-lg-3">
+      <button onclick="create()" class="btn btn-info">新建</button>
+      <button onclick="sort()" class="btn btn-info" style="display: none">置顶排序</button>
+    </div>
+  </div>
+  <table id="main-datatables" class="display dataTable dtr-inline" cellspacing="0" width="100%" role="grid"
+         aria-describedby="管理员" style="width: 100%;">
+    <thead>
+    <tr role="row">
+      <th tabindex="0" rowspan="1" colspan="1">ID</th>
+      <th tabindex="0" rowspan="1" colspan="1">标题</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1">主图</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1" style="width: 60px;">编辑时间</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1" style="width: 60px;">结束时间</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1">总数</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1">已使用数量</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1">是否发布</th>
+      <th tabindex="0" rowspan="1" colspan="1">排序</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1" style="width: 75px;">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="/javascripts/activities.js"></script>
+{% endblock %}

@@ -1,0 +1,249 @@
+<div class="col-lg-offset-1 col-lg-10">
+  {% set has = item.mobile && item.mobile.length > 0 %}
+  <form id="form" role="form" action="/lotteries/{{item.id}}" method="post">
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span> 标题</label>
+      <input class="form-control" type="text" name="t" value="{{ item.t }}" title="标题">
+    </div>
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span> 前置编号</label>
+      <input class="form-control" type="text" name="prefix" value="{{ item.prefix }}" title="前置编号">
+    </div>
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span> 数量</label>
+      <input class="form-control" type="text" name="num" value="{{ item.num }}" title="数量">
+    </div>
+    <div class="form-group">
+      <label>开始时间</label><br />
+      <input name="start" type="text" title="开始时间" class="form-control datepicker"
+        value="{% if item.start %}{{moment(item.start).format('YYYY年MM月DD日')}}{% endif %}" placeholder="开始时间">
+    </div>
+    <div class="form-group">
+      <label>结束时间</label><br />
+      <input name="end" type="text" title="结束时间" class="form-control datepicker"
+        value="{% if item.end %}{{moment(item.end).format('YYYY年MM月DD日')}}{% endif %}" placeholder="结束时间">
+    </div>
+    <div class="form-group">
+      <label>关闭时间</label><br />
+      <input name="close" type="text" title="关闭时间" class="form-control datepicker"
+        value="{% if item.close %}{{moment(item.close).format('YYYY年MM月DD日')}}{% endif %}" placeholder="关闭时间">
+    </div>
+  </form>
+  <div class="clearfix"></div>
+  <p>
+    <button onclick="$('#form').submit()" class="btn btn-success">保存</button>
+    <button onclick="window.location.href = '/lotteries'" class="btn btn-default" style="margin-right: 50px;">取消</button>
+    <button class="btn btn-danger hide" onclick="destroy('{{item.id}}');">删除</button>
+  </p>
+</div>
+
+<div class="clearfix"></div>
+<p>&nbsp;</p>
+<div class="col-lg-offset-1 col-lg-10">
+  <p>奖项设置 <a href="###" onclick="addPrize()"><span class="fa fa-plus-square"></span></a></p>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr><td>编号</td><td>名称</td><td>数量</td><td>领奖方式</td><td>操作</td></tr>
+    </thead>
+    <tbody>
+      {% for p in item.prizes%}
+        <tr>
+          <td>{% for t in prizeOrders%}{% if t.v == p.order %} {{t.t}} {% endif %}{% endfor %}</td>
+          <td>{{p.title}}</td>
+          <td>{{p.num}}</td>
+          <td>{% for t in prizeTypes%}{% if t.v == p.type %} {{t.t}} {% endif %}{% endfor %}</td>
+          <td width="105px">
+            <button onclick="editPrize('{{p.id}}', {{p.order}}, '{{p.title}}', {{p.num}}, {{p.type}})" class='btn btn-info'>编辑</button>
+            <button onclick="destroyPrize('{{p.id}}','{{item.id}}')" class='btn btn-danger'>删除</button>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="clearfix"></div>
+<p>&nbsp;</p>
+<div class="col-lg-offset-1 col-lg-10">
+  <p>抽奖策略</p>
+  <pre>{{item.strategy|json}}</pre>
+</div>
+
+<div class="clearfix"></div>
+<p>&nbsp;</p>
+<div class="col-lg-offset-1 col-lg-10">
+  <p>中奖结果统计 <span class="label label-info">{{rtotal}}</span></p>
+  <table class="table table-bordered table-striped">
+    <thead><tr><td>奖项</td><td>中奖数</td></tr></thead>
+    <tbody>
+      {% for r in records%}
+      <tr><td>{% for t in prizeOrders%}{% if t.v == r.order %} {{t.t}} {% endif %}{% endfor %}</td><td>{{r.count}}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="clearfix"></div>
+<p>&nbsp;</p>
+<div class="col-lg-offset-1 col-lg-10">
+  <p>奖池设置 <span class="label label-info">{{ptotal}}</span></p>
+  <table class="table table-bordered table-striped">
+    <thead><tr><td>第几天</td><td>奖项 / 奖池数量</td><td>总数</td></tr></thead>
+    <tbody>
+    {% for p in pools%}
+    <tr>
+      <td>{{p.day}}</td>
+      <td>
+        {% for l in p.items %}
+          {% if l.count > 0 %}
+          <button class="btn {% if l.order == 1 %} btn-danger {% elseif l.order > 1 && l.order < 4 %} btn-warning {% else %} btn-info {% endif %}" type="button">
+            {% for t in prizeOrders%}{% if t.v == l.order %} {{t.t}} {% endif %}{% endfor %} <span class="badge">{{l.count}}</span>
+          </button>
+          {% endif %}
+        {% endfor %}
+      </td>
+      <td>{{p.count}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!--中奖纪录-->
+<div class="clearfix"></div>
+<p>&nbsp;</p>
+<div class="col-lg-offset-1 col-lg-10">
+    <p>中奖纪录<span class="label label-info"></span></p>
+    <table id="example_lottery" class="table table-bordered table-striped" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>奖项</th>
+            <th>注册电话</th>
+            <th>姓名</th>
+            <th>联系电话</th>
+            <th>联系地址</th>
+            <th>日期</th>
+        </tr>
+        </thead>
+
+        <tfoot>
+        <tr>
+            <th>奖项</th>
+            <th>注册电话</th>
+            <th>姓名</th>
+            <th>联系电话</th>
+            <th>联系地址</th>
+            <th>日期</th>
+        </tr>
+        </tfoot>
+
+        <tbody>
+        {% for r in recordes %}
+        <tr>
+            <td>{{r.order}}</td>
+            <td>{{r.user.mobile}}</td>
+            <td>{{r.name}}</td>
+            <td>{{r.phone}}</td>
+            <td>{{r.address}}</td>
+            <td>{{moment(r.at).format('YYYY.MM.DD.')}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+<div id="prize-edit-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="fa fa-remove"></span></button>
+        <h4 class="modal-title">编辑奖项</h4>
+      </div>
+      <div class="modal-body">
+        <form id="prize-edit-form" class="form">
+          <input type="hidden" name="id">
+          <input type="hidden" name="pid">
+          <div class="form-group">
+            <label><span class="fa fa-asterisk red"></span> 名称</label>
+            <input class="form-control" type="text" name="title" title="名称">
+          </div>
+          <div class="form-group">
+            <label><span class="fa fa-asterisk red"></span> 编号</label>
+            <select class="form-control" name="order" title="编号">
+              {% for t in prizeOrders %}
+              <option value="{{t.v}}">{{t.t}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label><span class="fa fa-asterisk red"></span> 数量</label>
+            <input class="form-control" type="text" name="num" title="数量">
+          </div>
+          <div class="form-group">
+            <label><span class="fa fa-asterisk red"></span> 领取方式</label>
+            <select class="form-control" name="type" title="领取方式">
+              {% for t in prizeTypes %}
+              <option value="{{t.v}}">{{t.t}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <p>
+            <a onclick="editorPrize()" class="btn btn-success">保存</a>
+            <button onclick="javascript:$('#prize-edit-modal').modal('hide');" class="btn btn-default" style="margin-right: 50px;">取消</button>
+            <button class="btn btn-danger hide" onclick="destroy('{{item.id}}');">删除</button>
+          </p>
+        </form>
+        <p>&nbsp;</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="prize-add-modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="fa fa-remove"></span></button>
+                <h4 class="modal-title">添加奖项</h4>
+            </div>
+            <div class="modal-body">
+                <form id="prize-add-form" class="form">
+                    <input type="hidden" name="id">
+                    <input type="hidden" name="pid">
+                    <div class="form-group">
+                        <label><span class="fa fa-asterisk red"></span> 名称</label>
+                        <input class="form-control" type="text" name="title" title="名称">
+                    </div>
+                    <div class="form-group">
+                        <label><span class="fa fa-asterisk red"></span> 编号</label>
+                        <select class="form-control" name="order" title="编号">
+                            {% for t in prizeOrders %}
+                            <option value="{{t.v}}">{{t.t}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><span class="fa fa-asterisk red"></span> 数量</label>
+                        <input class="form-control" type="text" name="num" title="数量">
+                    </div>
+                    <div class="form-group">
+                        <label><span class="fa fa-asterisk red"></span> 领取方式</label>
+                        <select class="form-control" name="type" title="领取方式">
+                            {% for t in prizeTypes %}
+                            <option value="{{t.v}}">{{t.t}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <p>
+                        <a onclick="ajaxadd('{{item.id}}')" class="btn btn-success">保存</a>
+                        <button onclick="javascript:$('#prize-edit-modal').modal('hide');" class="btn btn-default" style="margin-right: 50px;">取消</button>
+                        <button class="btn btn-danger hide" onclick="destroy('{{item.id}}');">删除</button>
+                    </p>
+                </form>
+                <p>&nbsp;</p>
+            </div>
+        </div>
+    </div>
+</div>

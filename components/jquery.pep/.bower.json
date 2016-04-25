@@ -1,0 +1,14 @@
+{
+  "name": "jquery.pep",
+  "homepage": "https://github.com/briangonzalez/jquery.pep.js",
+  "version": "0.6.7",
+  "_release": "0.6.7",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.6.7",
+    "commit": "3a787761bf50b030871d96ef38ef0dd310a622a7"
+  },
+  "_source": "git://github.com/briangonzalez/jquery.pep.js.git",
+  "_target": "*",
+  "_originalSource": "jquery.pep"
+}

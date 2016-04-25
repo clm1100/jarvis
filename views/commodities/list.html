@@ -1,0 +1,63 @@
+{% extends '../layout/application.html' %}{% block title %}商品管理{% endblock %}{% block main %}
+<style>
+  #main-datatables tbody tr td
+  {
+    word-break:break-all !important; word-wrap:break-word !important;overflow:hidden !important;table-layout:fixed !important;
+  }
+</style>
+<div class="row">
+  <div id="top-toolbar" class="top-toolbar row">
+    <div class="col-lg-9 text-left">
+        <select id="is_selected_filter" class="form-control" title="是否上线">
+            <option value="">是否精选</option>
+            <option value="true">已精选</option>
+            <option value="false">未精选</option>
+        </select>
+      <select id="is_light_filter" class="form-control" title="是否推荐">
+        <option value="">是否点亮</option>
+        <option value="true">点亮</option>
+        <option value="false">未点亮</option>
+      </select>
+        <select id="is_publish_filter" class="form-control" title="是否上线">
+            <option value="">是否上线</option>
+            <option value="true">已上线</option>
+            <option value="false">未上线</option>
+        </select>
+      <select id="force_top_filter" class="form-control" title="是否置顶">
+        <option value="">是否置顶</option>
+        <option value="true">置顶</option>
+        <option value="false">未置顶</option>
+      </select>
+
+      <input id="start_date_filter" type="text" title="开始时间" class="form-control datepicker" placeholder="开始时间">
+      <input id="end_date_filter"  type="text" title="结束时间" class="form-control datepicker" placeholder="结束时间">
+      <button onclick="reset()" class="btn btn-default"><span class="fa fa-trash-o"></span> 清空</button>
+    </div>
+    <div class="col-lg-3">
+        <button onclick="create()" class="btn btn-info">新建</button>
+        <button onclick="sort()" class="btn btn-info">置顶排序</button>
+    </div>
+  </div>
+  <table id="main-datatables" class="display dataTable dtr-inline" cellspacing="0" width="100%" role="grid"
+         aria-describedby="商品管理" style="width: 100%;">
+    <thead>
+    <tr role="row">
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1">ID</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1">商品名称</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1">URL</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1">价格</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1">标签</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1" style="width: 25px">是否精选</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1" style="width: 25px">是否点亮</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1" style="width: 25px">是否公开</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1">用户</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1">所属分类</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1" style="width: 30px">发布时间</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1">强制置顶</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1" style="width: 75px">操作</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>{% endblock %}{% block scripts %}
+<script type="text/javascript" src="/javascripts/commodities.js"></script>{% endblock %}

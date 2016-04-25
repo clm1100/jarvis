@@ -1,0 +1,26 @@
+{% extends '../layout/application.html' %}{% block title %}邀请码{% endblock %}{% block main %}
+<div class="row">
+  <p>&nbsp;</p>
+  <div class="alert alert-success alert-dismissible" role="alert" style="display: none">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>{{message}}</strong>
+  </div>
+  <div class="top-toolbar"></div>
+  <table id="main-datatables" class="display nowrap dataTable dtr-inline" cellspacing="0" width="100%" role="grid"
+         aria-describedby="邀请码" style="width: 100%;">
+    <thead>
+    <tr role="row">
+      <th tabindex="0" rowspan="1" colspan="1" style="width: 30%">ID</th>
+      <th tabindex="0" rowspan="1" colspan="1" style="width: 30%">号码</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1" style="width: 30%;">是否已经使用</th>
+      <th data-orderable="false" tabindex="0" rowspan="1" colspan="1" style="width: 10%;">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="/javascripts/invitation_codes.js"></script>
+{% endblock %}

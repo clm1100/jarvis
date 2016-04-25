@@ -1,0 +1,66 @@
+<div class="col-lg-offset-2 col-lg-8">
+  <form role="form" action="/ads/{{item.id}}" method="post" enctype='multipart/form-data'>
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span> 类型</label>
+      <select id="type_filter" class="form-control" value="{{item.type}}" title="类型" name="type">
+        {% for t in types %}
+        <option value="{{loop.index - 1}}" {% if item.type == t.v %}selected{% endif %}>{{t.t}}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span> 链接</label>
+      <input class="form-control" type="text" name="link" value="{{item.link}}" title="link">
+    </div>
+
+    <div class="form-group">
+      <label>引用类型</label>
+      <select id="banner_filter" class="form-control" value="{{item.ref_type}}" title="引用类型" name="ref_type">
+        {% for t in ref_types %}
+        <option value="{{loop.index - 1}}" {% if item.ref_type == t.v %}selected{% endif %}>{{t.t}}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>引用 ID</label>
+      <input class="form-control" type="text" name="ref" value="{{item.ref}}" title="">
+    </div>
+
+    <div class="form-group">
+      <label>描述</label>
+      <input class="form-control" type="text" name="d" value="{{ item.d }}" title="d">
+    </div>
+    <div class="form-group">
+      <label>开始时间</label><br />
+      <input name="start" type="text" title="开始时间" class="form-control datepicker"
+        value="{% if item.start %}{{moment(item.start).format('YYYY年MM月DD日')}}{% endif %}" placeholder="开始时间">
+    </div>
+    <div class="form-group">
+      <label>结束时间</label><br />
+      <input name="end" type="text" title="结束时间" class="form-control datepicker"
+        value="{% if item.end %}{{moment(item.end).format('YYYY年MM月DD日')}}{% endif %}" placeholder="结束时间">
+    </div>
+    <div class="form-group">
+      <label>手动排序编号</label>
+      <input class="form-control" type="number" name="position" value="{{item.position}}" title="手动排序编号">
+    </div>
+    <div>
+      <div class="form-group">
+        <label><span class="fa fa-asterisk red"></span> 主图</label>
+        <input id="cover-input" class="form-control" type="file" name="cover" title="主图">
+      </div>
+      <a id="show-cover-link" href="{{item.cover_original}}" data-lightbox="cover">
+        <div id="cover-preview" class="form-group">
+          {% if item.cover %}<img src="{{item.cover_original}}" alt="" style="height: 128px"/>{% endif %}
+        </div>
+      </a>
+    </div>
+  </form>
+  <p>
+    <button onclick="$('form').submit()" class="btn btn-success">保存</button>
+    <button onclick="window.location.href = '/ads'" class="btn btn-default" style="margin-right: 50px;">取消</button>
+    <button class="btn btn-danger" onclick="destroy('{{item.id}}');">删除</button>
+  </p>
+</div>

@@ -1,0 +1,44 @@
+<div class="col-lg-offset-1 col-lg-10">
+  {% set has = item.mobile && item.mobile.length > 0 %}
+  <form id="form" role="form" action="/postcards/{{item.id}}" method="post">
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span> 标题</label>
+      <input class="form-control" type="text" name="t" value="{{ item.t }}" title="标题">
+    </div>
+      <div class="form-group">
+          <label><span class="fa fa-asterisk red"></span> 方案
+              <a id="mxp_btn_add" href="javascript:void(0);">
+              <span class="fa fa-plus-square"></span>
+          </a></label>
+      </div>
+    <div id="mxp_plans" class="form-group">
+        <div class="form-group">
+        {% for t in item.plans %}
+        <div class="col-sm-4">
+            <input type="text" class="form-control" name="planskey"  placeholder="明信片" value="{{ loop.key }}">
+        </div>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="planst"  placeholder="个数" value="{{ t }}">
+        </div>
+        {% endfor %}
+        </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-10">开始时间</label><br />
+      <input name="start" type="text" title="开始时间" class="form-control datepicker"
+        value="{% if item.start %}{{moment(item.start).format('YYYY年MM月DD日')}}{% endif %}" placeholder="开始时间">
+    </div>
+    <div class="form-group">
+      <label>结束时间</label><br />
+      <input name="end" type="text" title="结束时间" class="form-control datepicker"
+        value="{% if item.end %}{{moment(item.end).format('YYYY年MM月DD日')}}{% endif %}" placeholder="结束时间">
+    </div>
+
+  </form>
+  <div class="clearfix"></div>
+  <p>
+    <button onclick="$('#form').submit()" class="btn btn-success">保存</button>
+    <button onclick="window.location.href = '/lotteries'" class="btn btn-default" style="margin-right: 50px;">取消</button>
+    <button class="btn btn-danger hide" onclick="destroy('{{item.id}}');">删除</button>
+  </p>
+</div>

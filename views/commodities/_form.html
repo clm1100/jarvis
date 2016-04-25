@@ -1,0 +1,482 @@
+<div class="" style="width:100%">
+  <form role="form" action="/commodities/{{item.id}}" method="post" onsubmit="saveCommodity();">
+    <div class="form-group" style="display: none;">
+      <label><span class="fa fa-asterisk red"></span> ID</label>
+      <input id="commodities_id" class="form-control" type="text" name="id" value="{{item.id}}" title="">
+    </div>
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red "></span> 标题</label>
+      <input class="form-control" type="text" name="t" value="{{item.t}}" title="">
+    </div>
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red "></span> 用户</label>
+      <input class="form-control" type="text" name="nickname" value="{{item.user.nickname}}" title="">
+      <input class="form-control" type="text" name="user" value="{{item.user.id}}" title="" style="display:none">
+    </div>
+    <div class="form-group">
+      <label>简介</label>
+      <textarea class="form-control" name="d" title="">{{item.d}}</textarea>
+    </div>
+    <div class="form-group">
+      <label>SID</label>
+      <input class="form-control" type="text" name="sid" value="{{item.sid}}" title="">
+    </div>
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span> url</label>
+      <input class="form-control" type="text" name="url" value="{{item.url}}" title="">
+    </div>
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span>上传时间</label>
+      <div class='input-group date' id='at-datetime-select'>
+        <input id="start_date_filter" type="text" name="at" title="上传时间" class="form-control"
+             placeholder="上传时间" value="{{moment(item.at).format('YYYY年MM月DD日 HH:mm:ss')}}"/>
+        <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span>原价</label>
+      <input class="form-control" type="text" name="op" value="{{item.op}}" title="">
+    </div>
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span>价格</label>
+      <input class="form-control" type="text" name="p" value="{{item.p}}" title="">
+    </div>
+      <div class="form-group">
+          <input type="checkbox" name="copy_right" value="true" {% if item.copy_right %}checked{% endif %} title="是否正版">
+          <label></label><span>是否正版</span>
+      </div>
+    <div class="form-group">
+      <input type="checkbox" name="is_publish" value="true" {% if item.is_publish %}checked{% endif %} title="是否公开">
+      <label></label><span>是否公开</span>
+    </div>
+    <div class="form-group">
+      <input type="checkbox" name="is_abroad" value="true" {% if item.is_abroad %}checked{% endif %} title="是否海外">
+      <label></label><span>是否海外</span>
+    </div>
+    <div class="form-group">
+      <input type="checkbox" name="is_selected" value="true" {% if item.is_selected %}checked{% endif %} title="是否精选">
+      <label></label><span>是否精选</span>
+    </div>
+    <div class="form-group">
+      <input type="checkbox" name="is_light" value="true" {% if item.is_light %}checked{% endif %} title="是否点亮">
+      <label></label><span>是否点亮</span>
+    </div>
+    <div class="form-group">
+        <input type="checkbox" name="show_ext" value="true" {% if item.show_ext %}checked{% endif %} title="是否显示扩展内容">
+        <label></label><span>是否显示扩展内容</span>
+    </div>
+    <div class="form-group">
+      <input type="checkbox" name="force_top" value="true" {% if item.force_top %}checked{% endif %} title="是否置顶">
+      <label></label><span>是否置顶</span>
+    </div>
+      <div class="form-group">
+          <label>手动排序编号</label>
+          <input class="form-control" type="number" name="position" value="{{item.position}}" title="手动排序编号">
+      </div>
+    <div class="form-group">
+      <label> 货币单位</label>
+      <select id="currency" class="form-control" title="货币单位" name="currency">
+        <option value="{{item.currency}}">{{item.currency}}</option>
+        <option value="CNY">CNY 人民币</option>
+        <option value="JPY">JPY 日元</option>
+        <option value="USD">USD 美元</option>
+        <option value="HKD">HKD 港币</option>
+        <option value="EUR">EUR 欧元</option>
+        <option value="KRW">KRW 韩元</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label> 商品来源国家</label>
+      <select id="region" class="form-control" title="国家" name="region">
+        <option value="{{item.region}}">{{item.region}}</option>
+        <option value="CN">CN</option>
+        <option value="JP">JP</option>
+        <option value="US">US</option>
+      </select>
+    </div>
+
+    <!--添加所属分类-->
+    <div class="form-group">
+      <label>所属分类&nbsp;&nbsp;<a href="###" data-toggle="modal" data-target="#add-categories-modal">
+        <span class="fa fa-plus-square"></span></a></label>
+        <ul id="categories-list-group" class="list-group">
+        {% for c in categories %}
+          {% if item.categories.indexOf(c.id)> -1 %}
+          <li><input type='checkbox' name="categories" value='{{c.id}}' title="{{c.t}}" checked/> {{ c.t }}</li>
+          {% endif %}
+        {% endfor %}
+        </ul>
+    </div>
+
+    <div class="form-group">
+      <label>标签&nbsp;&nbsp;<a href="###" data-toggle="modal" data-target="#add-tag-modal"><span
+          class="fa fa-plus-square"></span></a></label>
+      <ul id="tags-list-group" class="list-group">
+        {% for t in item.tags %}
+        <li><input type='checkbox' name='tags' value='{{t.id}}' title="{{t.t}}" checked/> [{{ taglist[t.list]}}] {{t.t}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+      <div class="form-group">
+          <label>常用标签添加</label>
+          <ul class="list-group">
+              {% for t in usedtag %}
+              <li><input type='checkbox' name='tags' value='{{t.id}}' title="{{t.t}}" /> [{{ taglist[t.list]}}] {{t.t}}</li>
+              {% endfor %}
+          </ul>
+      </div>
+
+    <div class="form-group">
+      <label>点赞&nbsp;&nbsp;
+        <a href="javascript:void(0);" data-toggle="modal" data-target="#add-zan-modal">
+          <span class="fa fa-plus-square"></span>
+        </a>
+      </label>
+      <ul id="zans-list-group" class="list-group">
+        {% for z in zans %}
+        <li><input type='checkbox' name='zans' value='{{z.user.id}}' title="{{z.user.nickname}}" checked/> {{z.user.nickname}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div>
+      <label> 评论&nbsp;&nbsp;<a href="javascript:addComment();"><span class="fa fa-plus-square"></span></a></label>
+      <ul id="comments-list-group" class="list-group">
+        {% for c in comments %}
+        <li data-id="{{c.id}}" data-user="{{c.user.id}}" data-nickname="{{c.user.nickname}}" data-c="{{c.c}}">
+          <input type='checkbox' name='comments' value='{{c.id}}' title="{{c.user.nickname}}" checked/>
+          {{c.user.nickname}}: {{c.c}}&nbsp;&nbsp;<a href="###" onclick="editComment(this);"><span
+            class="fa fa-edit"></span></a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="form-group">
+      <span class="form-group ">
+        <label>收藏的数量</label>
+        <span class="red">{{item.collect_count}}</span>&nbsp;|&nbsp;
+      </span>
+      <span class="form-group ">
+        <label>赞的数量</label>
+        <span class="red">{{item.zans_count}}</span>&nbsp;|&nbsp;
+      </span>
+      <span class="form-group">
+        <label> 评论的数量</label>
+        <span class="red">{{item.comments_count}}</span>
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label>相关专题&nbsp;&nbsp;<a href="###" data-toggle="modal" data-target="#add-topic-modal"><span
+          class="fa fa-plus-square"></span></a></label>
+      <ul id="topics-list-group" class="list-group">
+        {% for t in item.topics %}
+        <li><input type='checkbox' name='topics' value='{{t.id}}' title="{{t.t}}" checked/> {{t.t}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="form-group">
+      <label>商品主图</label>
+
+      <div id="commodity-main-img">
+        <input id="custom-tags-input" type="hidden" name="customTags" />
+        <img src="{% if item.photos && item.photos.length > 0 %} {{ item.photos[0].content }} {% endif %}" alt=""
+             width="100%" height="100%"/>
+        {% for t in item.customTags %}
+        <div class="custom-tag" style="left: {{ t.x * 100 }}%; top: {{ t.y * 100 }}%">
+          <div class="dot" style="{% if t.o == 'r' %}left:91%;{% endif %}"></div>
+          <div class="txt" style="{% if t.o == 'r' %}border-radius: 10px 0 10px 0;{% endif %}">{{ t.d }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="form-group">
+      <label>商品图</label>
+
+      <div id="sortable-list" class="list-group" data-commodityid="{{ item.id }}">
+        {% for p in item.photos %}
+        <div style="width: 200px;height: 200px;float: left;position: relative;">
+          <span id="remove_this" onclick="$(this).parent().remove();deleteImg($(this).next().attr('data-id'));" class="fa fa-remove"></span>
+          <img src="{{p.content}}" width="100%" class="list-group-item" data-id="{{p.id}}"/>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <p>&nbsp;</p>
+
+    <div class="form-group">
+      <input id="cover-input" class="form-control" type="file" name="categories_img" title="">
+    </div>
+    <div class="clearfix"></div>
+    <div class="action-nav">
+      <input class="btn btn-lg btn-success" type="submit" value="保存"/>
+      <input class="btn btn-lg btn-default" type="button" onclick="history.back()" value="取消"/>
+      <input class="btn btn-lg btn-danger" onclick="destroy('{{item.id}}');" type="button" value="删除" style="margin-left: 50px;"/>
+
+        {% if item.user.nickname||p.content %}<input class="btn btn-lg btn-primary preview" onclick = "check_preview()"  value="预览" id="{{item.id}}"/>{% endif %}
+    </div>
+    <p>&nbsp;</p>
+
+    <p>&nbsp;</p>
+  </form>
+<!--添加所属分类-->
+    <div id="add-categories-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">添加所属分类</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group" id="categories_filter_cc">
+                        <select  title="分类" class="form-control" >
+                            {% for c in categories %}
+                            {% if !c.parent %}
+                                <option value="{{c.id}}" >{{c.t}}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" onclick="addCategories();">添加</button>
+                    <button class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  <!-- 添加标签 -->
+  <div id="add-tag-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">添加标签</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <select id="tags-list-select" class="form-control" title="">
+              <option value="all">全部</option>
+              {% for l in taglist %}
+              <option value="{{loop.key}}">{{l}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="input-group">
+            <input id="tag-search-input" type="text" class="form-control" placeholder="搜索标签">
+          <span class="input-group-btn">
+            <button class="btn btn-default" onclick="searchTags();">
+              <span class="fa fa-search"></span>
+            </button>
+          </span>
+          </div>
+          <div id="tag-result-list" class="search-result-list">
+            <ul></ul>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" onclick="addTags();">添加</button>
+          <button class="btn btn-default" data-dismiss="modal">关闭</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 添加自定义标签 -->
+  <div id="add-custom-tag-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">保存自定义标签</h4>
+        </div>
+        <div class="modal-body">
+          <div class="input-group">
+            <input id="add-tag-x-input" type="hidden"/>
+            <input id="add-tag-y-input" type="hidden"/>
+            <input id="is-edit-tag" type="hidden" value="false"/>
+            <input id="custom-tag-input" type="text" class="form-control" placeholder="自定义标签">
+            <span class="input-group-btn">
+              <button class="btn btn-default">
+                <span class="fa fa-edit"></span>
+              </button>
+            </span>
+          </div>
+          <p>&nbsp;</p>
+
+          <div>
+            <label class="radio-inline">
+              <input type="radio" id="add-tag-o-l-input" name="add-tag-o-input" value="l"
+                     style="margin-top: 2px; margin-left: -15px" title=""/>向左
+            </label>
+            <label class="radio-inline">
+              <input type="radio" id="add-tag-o-r-input" name="add-tag-o-input" value="r"
+                     style="margin-top: 2px; margin-left: -15px" title=""/>向右
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" onclick="saveCustomTag();">保存</button>
+          <button class="btn btn-default" data-dismiss="modal" style="margin-right: 50px">取消</button>
+          <button class="btn btn-danger" onclick="removeCustomTag()">删除</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 添加赞 -->
+  <div id="add-zan-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">添加点赞</h4>
+        </div>
+        <div class="modal-body">
+          <div class="input-group">
+            <input id="zan-search-input" type="text" class="form-control" placeholder="用户昵称">
+            <span class="input-group-btn">
+              <button class="btn btn-default" onclick="searchUsers('zan');"><span class="fa fa-search"></span></button>
+            </span>
+          </div>
+          <div id="zans-result-list" class="search-result-list">
+            <ul></ul>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" onclick="addZans();">添加</button>
+          <button class="btn btn-default" data-dismiss="modal">关闭</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 添加相关专题 -->
+  <div id="add-topic-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">添加关联专题</h4>
+        </div>
+        <div class="modal-body">
+          <div class="input-group">
+            <input id="topic-search-input" type="text" class="form-control" placeholder="搜索专题">
+            <span class="input-group-btn">
+              <button class="btn btn-default" onclick="searchTopics();">
+                <span class="fa fa-search"></span>
+              </button>
+            </span>
+          </div>
+          <div id="topics-result-list" class="search-result-list">
+            <ul></ul>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" onclick="addTopics();">添加</button>
+          <button class="btn btn-default" data-dismiss="modal">关闭</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 添加评论 -->
+  <div id="add-comment-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">保存评论</h4>
+        </div>
+        <div class="modal-body">
+          <div class="input-group">
+            <input id="comment-id-input" type="hidden"/>
+            <input id="comment-search-input" type="text" class="form-control" placeholder="用户昵称">
+            <span class="input-group-btn">
+              <button class="btn btn-default" onclick="searchUsers('comment');">
+                <span class="fa fa-search"></span>
+              </button>
+            </span>
+          </div>
+          <div id="comments-result-list" class="search-result-list">
+            <ul></ul>
+          </div>
+          <div class="input-group" style="width:100%;">
+            <label><span class="fa fa-asterisk red"></span> 评论内容</label>
+            <input id="comment-c-input" class="form-control" type="text" name="c" title="评论内容">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" onclick="saveComments();">保存</button>
+          <button class="btn btn-default" data-dismiss="modal" style="margin-right: 50px">取消</button>
+          <button class="btn btn-danger" onclick="removeComments()">删除</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="commodities-img" style="width: 200px; height: 200px; float: left; position: relative; display: none;">
+  <img src="" data-id="{{p._id}}" />
+</div>
+
+
+<!--自定义标签模板-->
+<script id="custom-tag-tpl" type="text/x-dot-template">
+  <div class="custom-tag" style="top:[[= it.top * 100]]%; left:[[= it.left * 100]]%;">
+    <div class="dot"></div>
+    <div class="txt">[[= it.txt]]</div>
+  </div>
+</script>
+
+<!--搜索用户显示模板-->
+<script id="users-tpl" type="text/x-dot-template">
+  [[~ it.items :item:index]]
+  <li><input type='checkbox' name='[[= it.name]]' value='[[= item.id]]' title="[[= item.nickname]]" [[=it.checked ?
+    "checked" : ""]] /> [[= item.nickname]]
+  </li>
+  [[~]]
+</script>
+
+<!--添加评论显示模板-->
+<script id="comments-tpl" type="text/x-dot-template">
+  <li data-id="[[= it._id]]" data-user="[[= it.user.id]]" data-nickname="[[= it.user.nickname]]" data-c="[[= it.c]]">
+    <input type='checkbox' name='comments' value='{{c.id}}' title="{{c.user.nickname}}" checked/>
+    [[= it.user.nickname]] - [[= it.c]] <a href="###" onclick="editComment(this);"><span class="fa fa-edit"></span></a>
+  </li>
+</script>
+
+<!--添加标签显示模板-->
+<script id="tags-tpl" type="text/x-dot-template">
+  [[~ it.items :item:index]]
+  [[? item]]
+  <li><input type='checkbox' name='tags' value='[[= item.id]]' title="[[= item.t]]"/> [[[= item.label]]] [[= item.t]]
+  </li>[[?]]
+  [[~]]
+</script>
+
+<!--专题模板-->
+<script id="topics-tpl" type="text/x-dot-template">
+  [[~ it.items :item:index]]
+  <li><input type='checkbox' name='topics' value='[[= item.id]]' title="[[= item.t]]"/> [[= item.t]]</li>
+  [[~]]
+</script>
+<!--添加标签模板-->
+<script id="categories-tpl" type="text/x-dot-template">
+    <select  title="分类" class="form-control" >
+        <option value="" >--不选择子类</option>
+        [[~ it.items :item:index]]
+        <option value="[[= item.id]]" >[[= item.t]]</option>
+        [[~]]
+    </select>
+</script>

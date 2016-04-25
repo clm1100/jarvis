@@ -1,0 +1,17 @@
+<div class="col-lg-offset-4 col-lg-4">
+  <form role="form" action="/search_histories/{{item.id}}" method="post">
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span> 关键字</label>
+      <input class="form-control" type="text" name="t" value="{{item.t}}" title="t">
+    </div>
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span> 搜索数</label>
+      <input class="form-control" type="text" name="count" value="{{ item.count }}" title="count">
+    </div>
+  </form>
+  <p>
+    <button onclick="$('form').submit()" class="btn btn-success">保存</button>
+    <button onclick="window.location.href = '/search_histories'" class="btn btn-default" style="margin-right: 50px;">取消</button>
+    <button class="btn btn-danger" onclick="destroy('{{item.id}}');">删除</button>
+  </p>
+</div>

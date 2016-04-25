@@ -1,0 +1,33 @@
+{% extends '../layout/application.html' %}{% block title %}批量短信{% endblock %}{% block main %}
+<div class="row">
+  <p>&nbsp;</p>
+  {% if message %}
+  <div class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>{{message}}</strong>
+  </div>
+  {% endif %}
+  <div class="col-lg-12">
+    <form role="form" action="/batch/sms" method="post" enctype='multipart/form-data'>
+      <div class="col-lg-8">
+        <div class="form-group">
+          <label><span class="fa fa-asterisk red"></span> 单发短信, 请上传 xlsx 格式的数据文件, 格式为 电话号码, 内容, 第一行为标题</label>
+          <input id="file-input" class="form-control" type="file" name="file" title="数据文件">
+        </div>
+        <div class="form-group">
+          <label><span class="fa fa-asterisk red"></span> 群发短信, 请填写内容和电话号码列表</label>
+          <textarea class="form-control" name="msg"></textarea>
+        </div>
+        <div class="form-group">
+          <label>使用逗号分割的电话号码列表</label>
+          <textarea class="form-control" name="mobile"></textarea>
+        </div>
+        <button class="btn btn-default" type="button" style="margin-top:-2px" onclick="$(form).submit();">批量发送</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="/javascripts/batch.js"></script>
+{% endblock %}

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预览</title>
+</head>
+<body>
+<input type="hidden" id = "is_development" value="{{is_development}}"/>
+<div id="Odiv" style="width:500px;margin:0 auto">
+    <iframe id="ifram"  frameborder=no scrolling=no   align=middle marginwidth=0 marginheight=0  src="">
+
+    </iframe>
+</div>
+<script src = "http://libs.useso.com/js/jquery/1.8.3/jquery.min.js"></script>
+<script>
+    $(function(){
+        var lock = $("#is_development");
+        var url;
+        var url1 = location.search;
+        if (url1.indexOf("?") != -1) {
+            var id = url1.substr(1);
+        }
+        var url_development = "http://localhost:7000/commodities/";
+        var url_production = "http://{{domain}}/commodities/";
+        if(lock=="true"){
+            url =url_development +id;
+        }else{
+            url = url_production+id;
+        }
+        $("#ifram").attr({width:400,height:700});
+        $("#ifram").css({border:0});
+        $("#ifram").attr({src:url});
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "jquery.animate.js",
+  "_release": "a858cd52e7",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "a858cd52e72a0f2d125cf42d9b90f01080ab5dc0"
+  },
+  "_source": "git://git.coding.net/bjj/jquery.animate.git",
+  "_target": "*",
+  "_originalSource": "git://git.coding.net/bjj/jquery.animate.git"
+}

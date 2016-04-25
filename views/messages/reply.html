@@ -1,0 +1,39 @@
+{% extends '../layout/application.html' %}{% block title %}私&nbsp;信{% endblock %}{% block main %}
+<div class="row">
+  <p>&nbsp;</p>
+  {% if message %}
+  <div class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>{{message}}</strong>
+  </div>
+  {% endif %}
+  <div class="col-lg-12">
+    <h5>历史记录</h5>
+    {% for it in items %}
+      <p>[{{moment(it.at).fromNow();}}] {{it.from.nickname}}: {{it.msg}}
+        {% if it.photo.length > 0 %}<br /><br />
+          <a href="{{it.original}}" data-lightbox='{{it.id}}'><img src="{{it.thumb}}" /></a>
+        {% endif %}
+      </p>
+    {% endfor %}
+  </div>
+  <div class="col-lg-12">
+    <input id="message-image-input" type="file" class="hide" name="photo">
+    <div class="input-group">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" onclick="$('#message-image-input').click();"><span class="fa fa-image"></span></button>
+      </span>
+      <input class="form-control" type="text" name="msg" title="消息" placeholder="{{from.nickname}} 回复 {{to.nickname}}">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" onclick="sendMessage('{{from.id}}', '{{to.id}}');">
+          <span class="fa fa-send"></span>
+        </button>
+      </span>
+    </div>
+  </div>
+  <div id="message-image" class="col-lg-12"></div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="/javascripts/messages.js"></script>
+{% endblock %}

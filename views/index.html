@@ -1,0 +1,71 @@
+{% extends 'layout/application.html' %}{% block title %}魔&nbsp;淘{% endblock %}
+{% block main %}
+<style type="text/css">
+  button.btn.btn-primary.big { margin-right:10px; margin-bottom: 10px; }
+  .list-group-item h6 { color: white; padding: 0; margin: 0; }
+</style>
+<div class="row">
+  <div class="col-lg-12">
+    <h4>用户数据统计</h4>
+    <button class="btn btn-primary big">注册用户数 <span class="badge">{{total_users_count}}</span></button>
+    <button class="btn btn-primary big">微信用户数 <span class="badge">{{total_wechat_users_count}}</span></button>
+    <button class="btn btn-primary big">今日注册人数 <span class="badge">{{today_signup_count}}</span></button>
+    <button class="btn btn-primary big">今日登录人数 <span class="badge">{{today_signin_count}}</span></button>
+    <p>&nbsp;</p>
+    <h4>内容数据统计</h4>
+    <button class="btn btn-primary big">商品数 <span class="badge">{{total_commodities_count}}</span></button>
+    <button class="btn btn-primary big">今日新增商品数 <span class="badge">{{today_commodities_count}}</span></button>
+    <button class="btn btn-primary big">商品跳转数 <span class="badge">{{total_to_shopping_count}}</span></button>
+    <button class="btn btn-primary big">今日商品跳转数 <span class="badge">{{today_to_shopping_count}}</span></button>
+    <button class="btn btn-primary big">评论数 <span class="badge">{{total_comments_count}}</span></button>
+    <button class="btn btn-primary big">今日新增评论数 <span class="badge">{{today_comments_count}}</span></button>
+    <button class="btn btn-primary big">点赞数 <span class="badge">{{total_zans_count}}</span></button>
+    <button class="btn btn-primary big">今日新增点赞数 <span class="badge">{{today_zans_count}}</span></button>
+    <p>&nbsp;</p>
+  </div>
+  <div class="col-lg-12"><h4>内容数据排名 Top5</h4></div>
+  <div class="col-lg-3">
+    <div class="list-group">
+      <a href="###" class="list-group-item active"><h6>商品评论排名</h6></a>
+      {% for c in top5_comments_commodities %}
+      <a href="http://{{domain}}/commodities/{{c.id}}" target="_blank" class="list-group-item">{{c.t}}&nbsp;
+        <span class="label label-primary" style="float:right">{{c.comments_count}}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="list-group">
+      <a href="###" class="list-group-item active"><h6>商品点赞排名</h6></a>
+      {% for c in top5_zans_commodities %}
+      <a href="http://{{domain}}/commodities/{{c.id}}" target="_blank" class="list-group-item">{{c.t}}&nbsp;
+        <span class="label label-primary" style="float:right">{{c.zans_count}}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="list-group">
+      <a href="###" class="list-group-item active"><h6>结构化标签排名</h6></a>
+      {% for t in top5_tags %}
+      <a href="/tags/{{t.id}}" class="list-group-item">{{t.t}}&nbsp;
+        <span class="label label-primary" style="float:right">{{t.count}}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="list-group">
+      <a href="###" class="list-group-item active"><h6>自定义标签排名</h6></a>
+      {% for t in top5_custom_tags %}
+      <a href="###" class="list-group-item">{{t.d}}&nbsp;
+        <span class="label label-primary" style="float:right">{{t.count}}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="/javascripts/index.js"></script>
+{% endblock %}

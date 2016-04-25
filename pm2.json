@@ -1,0 +1,17 @@
+{
+  "apps" : [
+    {
+      "name"      : "cms",
+      "script"    : "bin/www",
+      "cron_restart" : "1 4 * * *",
+      "env": {
+        "NODE_ENV": "production",
+        "COMMON_VARIABLE": "true",
+        "SECRET_KEY_BASE": "37e2b3cf73f7ad3e3ed3adb3f7a13971926bea4d9656822a7fd6b44f7e911460f825ea6f36af71b4bc196a46809dde37a7797ac5fefde68340016024425ff92b"
+      },
+      "env_production" : {
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}

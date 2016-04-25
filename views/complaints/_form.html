@@ -1,0 +1,103 @@
+<div class="col-lg-offset-4 col-lg-4">
+  {% set has = item.mobile && item.mobile.length > 0 %}
+  <form role="form" action="/complaints/{{item.id}}" method="post">
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span> 举报人</label>
+      <div class="input-group">
+        <input type="hidden" name="user" value="{{item.user.id}}"/>
+        <input class="form-control" type="text" name="user-nickname" value="{{item.user.nickname}}" title="举报人" aria-describedby="user-nickname">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" onclick="showUserSelectModal();">
+            <span class="fa fa-search"></span>
+          </button>
+        </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span> 被举报内容</label>
+      <div class="input-group">
+        <input type="hidden" name="commodity" value="{{item.commodity.id}}"/>
+        <input class="form-control" type="text" name="commodity-t" value="{{item.commodity.t}}" title="被举报内容" aria-describedby="commodity-t">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" onclick="showCommoditySelectModal();">
+            <span class="fa fa-search"></span>
+          </button>
+        </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span> 原因</label>
+      <input class="form-control" type="text" name="reason" value="{{ item.reason }}" title="reason">
+    </div>
+    <div class="form-group">
+      <input class="switch" type="checkbox" name="processed" {% if item.processed %}checked{% endif %} value="true" data-on-text="已处理" data-off-text="未处理" title="processed">
+    </div>
+  </form>
+  <div class="clearfix"></div>
+  <p>&nbsp;</p>
+  <p>
+    <button onclick="$('form').submit()" class="btn btn-success">保存</button>
+    <button onclick="window.location.href = '/complaints'" class="btn btn-default" style="margin-right: 50px;">取消</button>
+    <button class="btn btn-danger" onclick="destroy('{{item.id}}');">删除</button>
+  </p>
+</div>
+
+<div id="user-select-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="fa fa-remove"></span></button>
+        <h4 class="modal-title">选择用户</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <input type="hidden" name="type" />
+          <input class="form-control" type="text" name="nickname" title="nickname" aria-describedby="nickname">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" onclick="searchUsers();">
+              <span class="fa fa-search"></span>
+            </button>
+          </span>
+        </div>
+        <p>&nbsp;</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="commodity-select-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="fa fa-remove"></span></button>
+        <h4 class="modal-title">选择内容</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <input type="hidden" name="type" />
+          <input class="form-control" type="text" name="t" title="t" aria-describedby="t">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" onclick="searchCommodities();">
+              <span class="fa fa-search"></span>
+            </button>
+          </span>
+        </div>
+        <p>&nbsp;</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--搜索用户显示模板-->
+<script id="users-tpl" type="text/x-dot-template">
+  [[~ it.items :item:index]]
+  <p class="user"><a href="javascript:selectUser('[[= item.id]]', '[[= item.nickname]]')">[[= item.nickname]]</a></p>
+  [[~]]
+</script>
+
+<!--搜索内容显示模板-->
+<script id="commodities-tpl" type="text/x-dot-template">
+  [[~ it.items :item:index]]
+  <p class="commodity"><a href="javascript:selectCommodity('[[= item.id]]', '[[= item.t]]')">[[= item.t]]</a></p>
+  [[~]]
+</script>

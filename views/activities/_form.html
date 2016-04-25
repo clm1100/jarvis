@@ -1,0 +1,285 @@
+<style>
+    #ueditor_0{
+        height: 600px;
+    }
+    .topics_imgtxt_img img{display:block;margin-bottom: 2px;width:100%}
+    .topics_imgtxt_img p{
+        margin-bottom:2px;padding:0;
+    }
+    .topics_ps3 img{width:100%}
+</style>
+<link data="activity_link" href="http://2.suancai.sinaapp.com/theme3.css" rel="stylesheet">
+<div class="col-lg-12">
+  <form role="form" action="/activities/{{item.id}}" method="post" enctype='multipart/form-data'>
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span> 标题</label>
+      <input class="form-control" type="text" name="t" value="{{item.t}}" title="标题">
+    </div>
+    <div class="row">
+      <div class="form-group col-lg-6">
+        <label><span class="fa fa-asterisk red"></span> 主图</label>
+        <input id="cover-input" class="form-control" type="file" name="cover" title="主图">
+      </div>
+      <a id="show-cover-link" href="{{item.cover_original}}" data-lightbox="cover">
+        <div id="cover-preview" class="form-group col-lg-6">
+          <img src="{{item.cover_original}}" alt="" style="height: 64px"/>
+        </div>
+      </a>
+    </div>
+    <div class="form-group">
+      <label>简介</label>
+      <textarea class="form-control" name="d" title="">{{item.d}}</textarea>
+    </div>
+    <div class="form-group">
+        <input type="checkbox" name="is_publish" value="true" {% if item.is_publish %}checked{% endif %} title="是否已发布">
+        <label></label><span>是否公开</span>
+    </div>
+    <div class="form-group">
+        <input type="checkbox" name="show_ext" value="true" {% if item.show_ext %}checked{% endif %} title="是否显示扩展内容">
+        <label></label><span>是否显示扩展内容</span>
+    </div>
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span> 详情</label><br />
+      <div class="container">
+        <div class="row">
+          <p>点击模块插入模板</p>
+          <div class="col-md-4" >
+            <!--模板tab切换开始-->
+            <ul id="myTab" class="nav nav-tabs">
+              <li class="active"><a href="#home" data-toggle="tab">模板1</a></li>
+              <li><a href="#ios" data-toggle="tab">模板2</a></li>
+              <li><a href="#jmeter" data-toggle="tab">模板3</a></li>
+            </ul>
+            <div style="height:200px;overflow-y:auto;min-height:600px;">
+              <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade in active" id="home">
+                  <!--产品主题-->
+                  <div class="title_intro activity_add" >
+                      <section class="topics_title">
+                          <section class="topics_title_h">正文标题</section>
+                          <section class="topics_title_bar">
+                              <section class="topics_title_bar_left">
+                                  <section class="topics_title_bar_left_icon">图</section>
+                                  <section class="topics_title_bar_left_text">作者</section>
+                              </section>
+                              <section class="topics_title_bar_right">
+                                  <section class="topics_title_bar_right_icon">图</section>
+                                  <section class="topics_title_bar_right_text">{{ moment(item).format('YYYY-MM-DD') }}</section>
+                              </section>
+                          </section>
+                          <section class="topics_title_content">
+                              <p>呼吸口罩大战你准备好了吗呼吸“保肺战”口罩大战你准备好了吗</p>
+                          </section>
+                      </section>
+                  </div>
+                  <!--产品主体-->
+                  <div class="img_text activity_add">
+                      <section class="topics_imgtxt">
+                          <section class="topics_imgtxt_tap">1</section>
+                          <section class="topics_imgtxt_title">标题替换</section>
+                          <section class="topics_imgtxt_txt"><p>替换内容超萌的熊本部长是广大萌妹子们的最爱啊~神还原，冬天用既保暖又可爱哦~</p></section>
+                          <section class="topics_imgtxt_img">
+                              <p><img src="http://rndimg.com/ImageStore/OilPaintingGreen/500x300_OilPaintingGreen_fadf9845e4d645c99bdcd56248ea1eca.jpg" alt=""/></p>
+                          </section>
+                          <section class="topics_imgtxt_bar">
+                              <section class="topics_imgtxt_bar_left">
+                                  <section class="topics_imgtxt_bar_left_num">￥.00</section>
+                                  <section class="topics_imgtxt_bar_left_danwei">元</section>
+                              </section>
+                              <section class="topics_imgtxt_bar_right"><a href="#"><img src="http://dev.images.moretao.com/themes/topics/1/topics_kan.png" alt=""/></a></section>
+                          </section>
+                      </section>
+                  </div>
+                  <!--产品主体2-->
+                  <div class="img_text activity_add">
+                      <section class="topics_imgtxt">
+                          <section class="topics_imgtxt_tap">1</section>
+                          <section class="topics_imgtxt_title">KUMAMON熊本部长</section>
+                          <section class="topics_imgtxt_txt"><p>超萌的熊本部长是广大萌妹子们的最爱啊~神还原，冬天用既保暖又可爱哦~</p></section>
+                          <section class="topics_imgtxt_img">
+                              <p><img src="http://rndimg.com/ImageStore/OilPaintingGreen/500x300_OilPaintingGreen_fadf9845e4d645c99bdcd56248ea1eca.jpg" alt=""/></p>
+                          </section>
+                      </section>
+                  </div>
+                  <!--产品总结-->
+                  <div class="comment_text activity_add">
+                      <section class="topics_ps2_comment_text">
+                        <p>荣耀之路，叶修走了十年。全职之路，我们陪着他们走了三年零两个月。接下来的路，彼此还愿意一道通行吗？</p>
+                      </section>
+                  </div>
+                  <!--产品ps-->
+                  <div class="activity_add">
+                      <section class="topics_ps2"><section class="topics_ps2_inner"><p>荣耀之路，叶修走了十年。全职之路，我们陪着他们走了三年零两个月。接下来的路，彼此还愿意一道通行吗？</p></section></section>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="ios">
+                    <p>开发中......<br /><br/></p>
+                </div>
+                <div class="tab-pane fade" id="jmeter">
+                  <p>开发中......<br /><br/></p>
+                </div>
+              </div>
+            </div>
+
+            <!--模板tab切换结束-->
+          </div>
+          <div class="col-md-7">
+            <textarea  id="content-textarea" name="c" cols="50" rows="100" title="详情">{{item.c}}</textarea>
+          </div>
+        </div><br>
+      </div>
+    </div>
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span>开始时间</label><br />
+      <input name="start" type="text" title="开始时间" class="form-control datepicker"
+        value="{% if item.start %}{{moment(item.start).format('YYYY年MM月DD日')}}{% endif %}" placeholder="开始时间">
+    </div>
+    <div class="form-group" style="display: none">
+      <label>结束时间</label><br />
+      <input name="end" type="text" title="结束时间" class="form-control datepicker"
+        value="{% if item.end %}{{moment(item.end).format('YYYY年MM月DD日')}}{% endif %}" placeholder="结束时间">
+    </div>
+    <div class="form-group">
+      <label> 总数</label>
+      <input class="form-control" type="number" name="limit" title="总数" value="{{item.limit}}">
+    </div>
+    <div class="form-group">
+      <label>已使用数量</label>
+      <input class="form-control" type="number" name="count" value="{{item.count}}" title="已使用数量">
+    </div>
+    <div class="form-group">
+      <label>标签&nbsp;&nbsp;<a href="###" data-toggle="modal" data-target="#add-tag-modal"><span class="fa fa-plus-square"></span></a></label>
+      <ul id="tags-list-group" class="list-group">
+        {% for t in item.tags %}
+        <li><input type='checkbox' name='tags' value='{{t.id}}' title="{{t.t}}" checked/> {{t.t}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="form-group">
+      <label>相关点赞&nbsp;&nbsp;<a href="###" data-toggle="modal" data-target="#add-zan-modal"><span class="fa fa-plus-square"></span></a></label>
+      <ul id="zans-list-group" class="list-group">
+        {% for z in zans %}
+        <li><input type='checkbox' name='zans' value='{{z.user.id}}' title="{{z.user.nickname}}" checked/> {{z.user.nickname}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="form-group">
+      <label>相关评论&nbsp;&nbsp;<a href="javascript:addComment();"><span class="fa fa-plus-square"></span></a></label>
+      <ul id="comments-list-group" class="list-group">
+        {% for c in comments %}
+        <li data-id="{{c.id}}" data-user="{{c.user.id}}" data-nickname="{{c.user.nickname}}" data-c="{{c.c}}">
+          {{c.user.nickname}} - {{c.c}} <a href="###" onclick="editComment(this);"><span class="fa fa-edit"></span></a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="form-group">
+      <input type="checkbox" name="is_out" {% if item.is_out %}checked{% endif %} title="是否为外部页面">
+      <label></label><span>是否为外部页面</span>
+    </div>
+    <div class="form-group">
+      <label>外部页面 URL</label>
+      <input class="form-control" type="text" name="url" value="{{item.url}}" title="URL">
+    </div>
+  </form>
+  <p>
+    <button onclick="$('form').submit();" class="btn btn-success">保存</button>
+    <button onclick="window.location.href = '/activities'" class="btn btn-default" style="margin-right: 50px;">取消</button>
+    <button class="btn btn-danger" onclick="destroy('{{item.id}}');">删除</button>
+    <button id="activities_preview" class="btn btn-success">预览</button>
+  </p>
+</div>
+
+<!-- 添加标签 -->
+<div id="add-tag-modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">添加标签</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <select id="tags-list-select" class="form-control" title="">
+            <option value="all">全部</option>
+            {% for l in taglists %}
+            <option value="{{l.v}}">{{l.d}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="input-group">
+          <input id="tag-search-input" type="text" class="form-control" placeholder="搜索标签">
+          <span class="input-group-btn">
+            <button class="btn btn-default" onclick="searchTags($('#tags-list-select').val());">
+              <span class="fa fa-search"></span>
+            </button>
+          </span>
+        </div>
+        <div id="tag-result-list" class="search-result-list"><ul></ul></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" onclick="addTags();">添加</button>
+        <button class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 添加评论 -->
+<div id="add-comment-modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">保存评论</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <input id="comment-id-input" type="hidden"/>
+          <input id="comment-search-input" type="text" class="form-control" placeholder="用户昵称">
+          <span class="input-group-btn">
+            <button class="btn btn-default" onclick="searchUsers('comment');">
+              <span class="fa fa-search"></span>
+            </button>
+          </span>
+        </div>
+        <div id="comments-result-list" class="search-result-list"><ul></ul></div>
+        <div class="input-group" style="width:100%;">
+          <label><span class="fa fa-asterisk red"></span> 评论内容</label>
+          <input id="comment-c-input" class="form-control" type="text" name="c" title="评论内容">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" onclick="saveComments();">保存</button>
+        <button class="btn btn-default" data-dismiss="modal" style="margin-right: 50px">取消</button>
+        <button class="btn btn-danger" onclick="removeComments()">删除</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script id="tags-tpl" type="text/x-dot-template">
+  [[~ it.items :item:index]]
+  <li><input type='checkbox' name='tags' value='[[= item.id]]' title="[[= item.t]]"/> [[= item.t]]</li>
+  [[~]]
+</script>
+
+<script id="commodities-tpl" type="text/x-dot-template">
+[[~ it.items :item:index]]
+  <li><input type='checkbox' name='commodities' value='[[= item.id]]' title="[[= item.t]]"/> [[= item.t]]</li>
+[[~]]
+</script>
+
+<script id="users-tpl" type="text/x-dot-template">
+  [[~ it.items :item:index]]
+  <li><input type='checkbox' name='[[= it.name]]' value='[[= item.id]]' title="[[= item.nickname]]" [[= it.checked ? "checked" : ""]] /> [[= item.nickname]]</li>
+  [[~]]
+</script>
+
+<script id="comments-tpl" type="text/x-dot-template">
+  <li data-id="[[= it._id]]" data-user="[[= it.user.id]]" data-nickname="[[= it.user.nickname]]" data-c="[[= it.c]]" >
+    [[= it.user.nickname]] - [[= it.c]] <a href="###" onclick="editComment(this);"><span class="fa fa-edit"></span></a>
+  </li>
+</script>

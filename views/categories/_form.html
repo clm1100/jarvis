@@ -1,0 +1,30 @@
+<div class="col-lg-offset-4 col-lg-4">
+  <form role="form" action="/categories/{{item.id}}" method="post">
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span> 上一级</label>
+      <select name="parent" class="form-control">
+        <option value="">根节点</option>
+        {% for node in categories %}
+        <option value="{{node.id}}" {% if item.parent && item.parent == node.id %}selected='selected'{% endif%}>
+          {% if node.parent %}&nbsp;&nbsp;{{node.parent.t}} - {% endif%}{{node.t}}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span> 名称</label>
+      <input class="form-control" type="text" name="t" value="{{item.t}}" title="">
+    </div>
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span> 路径</label>
+      <input class="form-control" type="path" name="path" value="{{item.path}}" title="">
+    </div>
+    <br/>
+    <br/>
+    <p class="action-nav">
+    <input class="btn btn-lg btn-success" type="submit" value="保存" />
+    <input class="btn btn-lg btn-default" type="button" onclick="history.back()" value="取消"/>
+      <input class="btn btn-lg btn-danger" onclick="destroy('{{item.id}}');" type="button" value="删除"  style="margin-left: 50px;"/>
+    </p>
+  </form>
+</div>

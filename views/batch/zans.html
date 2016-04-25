@@ -1,0 +1,21 @@
+{% extends '../layout/application.html' %}{% block title %}商品{% endblock %}{% block main %}
+<div id="top-toolbar" class="top-toolbar row">
+  <div class="col-lg-8" style="text-align:left">
+    <form class="form">
+      <select id="zans-type-select" class="form-control">
+        <option value="commodities">商品</option>
+        <option value="topics">专题</option>
+        <option value="activities">活动</option>
+      </select>
+      <input id="zans-min-input" type="text" class="form-control" placeholder="最小次数">&nbsp;-&nbsp;
+      <input id="zans-max-input" type="text" class="form-control" placeholder="最大次数">
+      <button class="btn btn-default" type="button" style="margin-top:-2px" onclick="addZansCount()">批量点赞</button>
+    </form>
+  </div>
+  <div class="col-lg-4"></div>
+</div>
+{% endblock %}
+{% block scripts %}
+
+<script type="text/javascript" src="/javascripts/batch.js"></script>
+{% endblock %}

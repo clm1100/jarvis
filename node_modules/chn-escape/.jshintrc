@@ -1,0 +1,22 @@
+{
+  "scripturl":true,
+  "asi": true,
+  "browser": true,
+  "devel": false,
+  "node": true,
+  "jquery": true,
+  "loopfunc":true,
+  "expr":true,
+  "esnext": true,
+  "bitwise": true,
+  "curly": false,
+  "latedef": false,
+  "expr": true,
+  "eqeqeq": false,
+  "eqnull": false,
+  "noarg": true,
+  "undef": true,
+  "proto": true,
+  "strict": false,
+  "predef": []
+}

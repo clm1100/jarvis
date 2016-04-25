@@ -1,0 +1,146 @@
+<div class="col-lg-offset-4 col-lg-6">
+  <form role="form" action="/tags/{{item.id}}" method="post" enctype='multipart/form-data'>
+      <div class="form-group" style="display: none;">
+          <label><span class="fa fa-asterisk red"></span> ID</label>
+          <input id="tags_id" class="form-control" type="text" name="id" value="{{item.id}}" title="">
+      </div>
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span> 所属列表</label>
+      <select class="form-control" name="list" title="list">
+        {% for l in lists %}
+          <option value="{{l.v}}" {% if l.v == item.list %} selected {% endif %}>{{l.d}}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span> 标题</label>
+      <input class="form-control" name="t" title="title" value="{{item.t}}">
+    </div>
+    <div class="form-group">
+      <label> 描述</label>
+      <textarea name="d" class="form-control" cols="30" rows="10">{{item.d}}</textarea>
+    </div>
+    <div class="form-group">
+      <label> 同义词</label>
+      <input class="form-control" name="synonyms" title="同义词" value="{{item.synonyms}}">
+    </div>
+    <div class="form-group">
+      <label> 联想词</label>
+      <input class="form-control" name="associations" title="联想词" value="{{item.associations}}">
+    </div>
+    <div class="form-group">
+      <label> 点击次数</label>
+      <input class="form-control" type="number" name="count" title="点击次数" value="{{item.count}}">
+    </div>
+    <div class="form-group">
+      <label> 列表排序</label>
+      <input class="form-control" type="number" name="position" title="列表排序" value="{{item.position}}">
+    </div>
+    <div class="form-group">
+      <label> 总数</label>
+      <input class="form-control" type="number" name="limit" title="总数" value="{{item.limit}}">
+    </div>
+    <div class="form-group">
+      <label>已使用数量</label>
+      <input class="form-control" type="number" name="used" value="{{item.used}}" title="已使用数量">
+    </div>
+    <div class="row">
+      <div class="form-group col-lg-6">
+        <label><span class="fa fa-asterisk red"></span> 主图</label>
+        <input id="cover-input" class="form-control" type="file" name="cover" title="主图">
+      </div>
+      <a id="show-cover-link" href="{{item.cover_original}}" data-lightbox="cover">
+        <div id="cover-preview" class="form-group col-lg-6">
+          {% if item.cover %}<img src="{{item.cover_thumb}}" alt="" style="height: 128px"/>{% endif %}
+        </div>
+      </a>
+    </div>
+      <!--<div class="row">-->
+          <!--<div class="form-group">-->
+              <!--<label>广告图</label>-->
+
+              <!--<div id="sortable-list" class="list-group" data-commodityid="{{ item.id }}">-->
+                  <!--{% for p in item.photos %}-->
+                  <!--<div style="width: 100px;height: 100px;float: left;position: relative;">-->
+                      <!--<span id="remove_this" onclick="$(this).parent().remove();delete_img($(this).next().attr('data-id'));" class="fa fa-remove"></span>-->
+                      <!--<img src="{{p.content}}" width="100%" class="list-group-item" data-id="{{p.id}}"/>-->
+                  <!--</div>-->
+                  <!--{% endfor %}-->
+              <!--</div>-->
+          <!--</div>-->
+          <!--<div class="clearfix"></div>-->
+          <!--<p>&nbsp;</p>-->
+      <!--</div>-->
+      <div class="form-group" style="overflow: hidden">
+          <label> Ads &nbsp;&nbsp;<a href="javascript:showAddAds();"><span class="fa fa-plus-square"></span></a></label>
+          <ul id="ads-list-group" class="list-group">
+              {% for c in item.ads %}
+              <li data-id="{{c.id}}" data-d="{{c.d}}" data-order="{{c.order}}" class="list-group-item" style="width:10rem;height:10rem;float: left">
+                  <input type='checkbox' name='ads' value='{{c.id}}' title="{{c.d}}" checked/>
+                  <!--{{c.d}}&nbsp;&nbsp;-->
+                  <img style="width:100%;height:auto" src="{{c.cover_cover}}" alt=""/>
+                  <a href="/ads/{{c.id}}" target="_blank"><span class="fa fa-edit"></span></a>
+              </li>
+              {% endfor %}
+          </ul>
+      </div>
+  </form>
+    <!--<div class="form-group">-->
+        <!--<input id="photo-input" class="form-control" type="file" name="categories_img" title="">-->
+    <!--</div>-->
+  <p>
+    <button onclick="$('form').submit()" class="btn btn-success">保存</button>
+    <button onclick="window.location.href = '/tags'" class="btn btn-default" style="margin-right: 50px;">取消</button>
+    <button class="btn btn-danger" onclick="destroy('{{item.id}}');">删除</button>
+  </p>
+</div>
+<!--图片模板-->
+<div id="commodities-img" style="width: 100px; height: 100px; float: left; position: relative; display: none;">
+    <img src="" data-id="{{p._id}}" />
+</div>
+
+<!-- 添加 Ad -->
+<div id="add-ad-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">添加 Ad</h4>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <input id="ad-search-input" type="text" class="form-control" placeholder="搜索 Ad">
+          <span class="input-group-btn">
+            <button class="btn btn-default" onclick="searchAds();">
+                <span class="fa fa-search"></span>
+            </button>
+          </span>
+                </div>
+                <div id="ads-result-list" class="search-result-list"><ul></ul></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" onclick="saveAds();">保存</button>
+                <button class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--自定义 Ad 模板-->
+<script id="ads-tpl" type="text/x-dot-template">
+    [[~ it.items :item:index]][[? item]]
+    <li><input type='checkbox' name='ads' value='[[= item.id]]' title="[[= item.d]]"/> [[[= item.d]]]</li>
+    [[?]][[~]]
+</script>
+<!--广告添加模板-->
+<script id="ads-result" type="text/x-dot-template">
+    [[~ it :item:index]][[? item]]
+    <li data-id="[[= item.id]]" data-d="[[= item.d]]" data-order="[[= item.order]]" class="list-group-item" style="width:10rem;height:10rem;float: left">
+        <input type='checkbox' name='ads' value='[[= item.id]]' title="[[= item.d]]" checked/>
+        <img style="width:100%;height:auto" src="[[= item.cover_cover]]" alt=""/>
+        <a href="/ads/[[= item.id]]" target="_blank"><span class="fa fa-edit"></span></a>
+    </li>
+    [[?]][[~]]
+</script>
+

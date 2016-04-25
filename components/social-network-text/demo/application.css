@@ -1,0 +1,9 @@
+body {
+  font-family: 'Lantinghei SC', 'Open Sans', Arial, 'Hiragino Sans GB', 'Microsoft YaHei', 微软雅黑, STHeiti, 'WenQuanYi Micro Hei', SimSun, sans-serif;
+  font-size: 1rem;
+  -webkit-font-smoothing: antialiased;
+  background-color: white;
+  color: #555353;
+}
+
+body::-webkit-scrollbar { display: none; }

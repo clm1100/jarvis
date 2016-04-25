@@ -1,0 +1,102 @@
+<div class="col-lg-offset-2 col-lg-8">
+  <form role="form" action="/tabs/{{item.id}}" method="post">
+      <div class="form-group" style="display: none;">
+          <label><span class="fa fa-asterisk red"></span> ID</label>
+          <input id="tags_id" class="form-control" type="text" name="id" value="{{item.id}}" title="">
+      </div>
+    <div class="form-group">
+      <label><span class="fa fa-asterisk red"></span> 标题</label>
+      <input class="form-control" type="text" name="t" value="{{item.t}}" title="link">
+    </div>
+      <div class="form-group">
+          <label><span class="fa fa-asterisk red"></span> 类型</label>
+          <select id="type_filter" class="form-control" value="{{item.type}}" title="类型" name="type">
+              {% for t in types %}
+              <option value="{{loop.index - 1}}" {% if item.type == t.v %}selected{% endif %}>{{t.t}}</option>
+              {% endfor %}
+          </select>
+      </div>
+      <div class="form-group">
+          <label><span class="fa fa-asterisk red"></span> ref</label>
+          <input class="form-control" type="text" name="ref" value="{{item.ref}}" title="link">
+      </div>
+
+    <div class="form-group">
+      <label>开始时间</label><br />
+      <input name="start" type="text" title="开始时间" class="form-control datepicker"
+        value="{% if item.start %}{{moment(item.start).format('YYYY年MM月DD日')}}{% endif %}" placeholder="开始时间">
+    </div>
+    <div class="form-group">
+      <label>结束时间</label><br />
+      <input name="end" type="text" title="结束时间" class="form-control datepicker"
+        value="{% if item.end %}{{moment(item.end).format('YYYY年MM月DD日')}}{% endif %}" placeholder="结束时间">
+    </div>
+    <div class="form-group">
+      <label>手动排序编号</label>
+      <input class="form-control" type="number" name="position" value="{{item.position}}" title="手动排序编号">
+    </div>
+      <div class="form-group" style="overflow: hidden">
+          <label> Ads &nbsp;&nbsp;<a href="javascript:showAddAds();"><span class="fa fa-plus-square"></span></a></label>
+          <ul id="ads-list-group" class="list-group">
+              {% for c in item.ads %}
+              <li data-id="{{c.id}}" data-d="{{c.d}}" data-order="{{c.order}}" class="list-group-item" style="width:10rem;height:10rem;float: left">
+                  <input type='checkbox' name='ads' value='{{c.id}}' title="{{c.d}}" checked/>
+                  <!--{{c.d}}&nbsp;&nbsp;-->
+                  <img style="width:100%;height:auto" src="{{c.cover_cover}}" alt=""/>
+                  <a href="/ads/{{c.id}}" target="_blank"><span class="fa fa-edit"></span></a>
+              </li>
+              {% endfor %}
+          </ul>
+      </div>
+  </form>
+  <p>
+    <button onclick="$('form').submit()" class="btn btn-success">保存</button>
+    <button onclick="window.location.href = '/ads'" class="btn btn-default" style="margin-right: 50px;">取消</button>
+    <button class="btn btn-danger" onclick="destroy('{{item.id}}');">删除</button>
+  </p>
+</div>
+
+<!-- 添加 Ad -->
+<div id="add-ad-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">添加 Ad</h4>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <input id="ad-search-input" type="text" class="form-control" placeholder="搜索 Ad">
+          <span class="input-group-btn">
+            <button class="btn btn-default" onclick="searchAds();">
+                <span class="fa fa-search"></span>
+            </button>
+          </span>
+                </div>
+                <div id="ads-result-list" class="search-result-list"><ul></ul></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" onclick="saveAds();">保存</button>
+                <button class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--自定义 Ad 模板-->
+<script id="ads-tpl" type="text/x-dot-template">
+    [[~ it.items :item:index]][[? item]]
+    <li><input type='checkbox' name='ads' value='[[= item.id]]' title="[[= item.d]]"/> [[[= item.d]]]</li>
+    [[?]][[~]]
+</script>
+<!--广告添加模板-->
+<script id="ads-result" type="text/x-dot-template">
+    [[~ it :item:index]][[? item]]
+    <li data-id="[[= item.id]]" data-d="[[= item.d]]" data-order="[[= item.order]]" class="list-group-item" style="width:10rem;height:10rem;float: left">
+        <input type='checkbox' name='ads' value='[[= item.id]]' title="[[= item.d]]" checked/>
+        <img style="width:100%;height:auto" src="[[= item.cover_cover]]" alt=""/>
+        <a href="/ads/[[= item.id]]" target="_blank"><span class="fa fa-edit"></span></a>
+    </li>
+    [[?]][[~]]
+</script>

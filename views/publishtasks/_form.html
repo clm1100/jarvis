@@ -1,0 +1,39 @@
+<div class="col-lg-offset-4 col-lg-4">
+    <form role="form" id="form" action="/publishtasks/{{item.id}}" method="post">
+        <div class="form-group">
+            <label>标题</label>
+            <input class="form-control" type="text" name="t" value="{{ item.t }}" title="t">
+        </div>
+
+        <div class="form-group">
+            <label><span class="fa fa-asterisk red"></span> 类型</label>
+            <select id="type_filter" class="form-control" value="{{item.type}}" title="类型" name="type">
+                {% for t in types %}
+                <option value="{{loop.index - 1}}" {% if item.type == t.v %}selected{% endif %}>{{t.t}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label><span class="fa fa-asterisk red"></span>产品 ID</label>
+            <input class="form-control" type="text" name="cid" value="{{item.cid}}" title="">
+        </div>
+
+
+        <div class="form-group">
+            <label><span class="fa fa-asterisk red"></span> 发布时间</label>
+            <div class='input-group date' id='datetimepicker1'>
+                <input type='text' class="form-control" name="time" title="发布时间" value="{% if item.time %}{{moment(item.time).format('YYYY年MM月DD日 HH:mm')}}{% endif %}"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+            </div>
+        </div>
+
+    </form>
+    <p>
+        <button onclick="$('#form').submit()" class="btn btn-success">保存</button>
+        <button onclick="window.location.href = '/publishTask'" class="btn btn-default" style="margin-right: 50px;">取消</button>
+        <button class="btn btn-danger" onclick="destroy('{{item.id}}');">删除</button>
+    </p>
+</div>

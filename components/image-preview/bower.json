@@ -1,0 +1,20 @@
+{
+  "name": "image-preview",
+  "main": "image-preview.js",
+  "version": "0.0.3",
+  "homepage": "https://github.com/mambahao/image-preview",
+  "authors": [
+    "Justin Hao <justin@haoyufeng.com>"
+  ],
+  "keywords": [
+    "image-preview"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
